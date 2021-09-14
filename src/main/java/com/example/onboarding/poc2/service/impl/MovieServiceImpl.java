@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.onboarding.poc2.dao.MovieDao;
@@ -20,7 +19,8 @@ public class MovieServiceImpl implements MovieService {
 	MovieDao movieDao;
 
 	@Override
-	public ResponseEntity<List<MovieModel>> getAllMovies(String title) {
+	public ResponseDto getAllMovies(String title) {
+		ResponseDto response = new ResponseDto();
 		try {
 			List<MovieModel> movie = new ArrayList<MovieModel>();
 
@@ -30,10 +30,12 @@ public class MovieServiceImpl implements MovieService {
 				movieDao.findByTitle(title).forEach(movie::add);
 
 			if (movie.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+				response.setMessage(HttpStatus.NO_CONTENT.toString());
 			}
-
-			return new ResponseEntity<>(movie, HttpStatus.OK);
+			
+			response.setCode("200");
+			response.setData(movie);
+			return response;
 		}catch(Exception e) {
 			throw e;
 		}
@@ -65,7 +67,9 @@ public class MovieServiceImpl implements MovieService {
 			
 			return response;
 		}catch(Exception e) {
-			throw e;
+			response.setCode("500");
+			response.setMessage(e.getMessage());
+			return response;
 		}
 	}
 

@@ -1,11 +1,6 @@
 package com.example.onboarding.poc2.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,11 +23,13 @@ public class MoviesController {
 	MovieService movieService;
 	
 	@GetMapping("/get-movies")
-	public ResponseEntity<List<MovieModel>> getAllBooks(@RequestParam(required = false) String title) {
+	public ResponseDto getAllMovies(@RequestParam(required = false) String title) {
 		try {
 			return movieService.getAllMovies(title);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			ResponseDto response = new ResponseDto();
+			response.setCode("500");
+			return response;
 		}
 	}
 	

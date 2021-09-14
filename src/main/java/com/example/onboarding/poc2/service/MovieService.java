@@ -9,7 +9,7 @@ import com.example.onboarding.poc2.model.MovieModel;
 
 public interface MovieService {
 
-	ResponseEntity<List<MovieModel>> getAllMovies(String title);
+	ResponseDto getAllMovies(String title);
 
 	ResponseDto insertMovie(String title, String genre);
 
