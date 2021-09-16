@@ -1,14 +1,19 @@
 package com.example.onboarding.poc2.utils;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
@@ -325,12 +330,47 @@ public class SftpUtils {
 				channelSftp.cd(path);
 			}
 			entries = channelSftp.ls("*");
+			
 		} catch (Exception e) {
 			throw e;
 		} finally {
 			closeSession(channelSftp);
 		}
 		return entries;
+	}
+	
+	public InputStream GetContainFile(String path) throws Exception {
+		InputStream input = null;
+		ChannelSftp channelSftp = null;
+		try {
+			channelSftp = getSftpClient();
+			input = channelSftp.get(path);
+		}catch(Exception e) {
+			throw e;
+		}
+//		finally {
+//			closeSession(channelSftp);
+//		}
+		return input;
+	}
+
+	public List<String> sftpGetFiles(String sftpPath) throws Exception {
+		ChannelSftp channelSftp = null;
+        List<String> result = new ArrayList<>();
+		try {
+			channelSftp = getSftpClient();
+
+			// Get File From Folder Server
+            InputStream stream = channelSftp.get(sftpPath);
+			BufferedReader read = new BufferedReader(new InputStreamReader(stream,"UTF-8"));
+			result = read.lines().collect(Collectors.toList());
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			closeSession(channelSftp);
+			// channelSftp.disconnect();
+		}
+        return result;
 	}
 
 }
