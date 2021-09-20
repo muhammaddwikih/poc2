@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.onboarding.poc2.dto.ResponseDto;
-import com.example.onboarding.poc2.model.MovieModel;
 import com.example.onboarding.poc2.service.FileService;
 
 

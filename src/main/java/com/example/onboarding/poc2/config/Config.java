@@ -26,4 +26,21 @@ public class Config {
 	@Value("${spring.custom.sftpFolder}")
 	private String sftpFolder;
 	
+	@Value("${spring.custom.redis.host}")
+	private String redisHost;
+	
+	@Value("${spring.custom.redis.port}")
+	private Integer redisPort;
+
+	@Value("${spring.custom.redis.password}")
+	private String redisPassword;
+
+	@Value("${spring.custom.redis.database}")
+	private Integer redisDatabase;
+
+	@Value(value = "${spring.custom.kafka.bootstrapAddress}")
+	private String kafkaBootstrapAddress;
+
+	@Value(value = "${spring.custom.kafka.topic}")
+	private String kafkaTopic;
 }

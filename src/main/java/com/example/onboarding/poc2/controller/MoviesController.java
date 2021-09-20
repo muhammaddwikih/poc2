@@ -1,9 +1,9 @@
 package com.example.onboarding.poc2.controller;
 
-import java.util.ArrayList;
-import java.util.concurrent.Future;
+import javax.annotation.security.RolesAllowed;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,5 +58,22 @@ public class MoviesController {
         return movieService.deleteMovie(id);
     }
 	
+	@GetMapping("/check-admin")
+	@RolesAllowed(value = {"Admin"})
+	public ResponseDto checkAuthAdmin(Authentication authentication) {
+		ResponseDto response = new ResponseDto();
+		response.setCode("200");
+		response.setData(authentication);
+		return response;
+	}
+	
+	@GetMapping("/check")
+	@RolesAllowed(value = {"Admin","User"})
+	public ResponseDto checkAuth(Authentication authentication) {
+		ResponseDto response = new ResponseDto();
+		response.setCode("200");
+		response.setData(authentication);
+		return response;
+	}
 
 }

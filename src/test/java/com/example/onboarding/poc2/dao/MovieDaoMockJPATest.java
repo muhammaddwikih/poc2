@@ -33,18 +33,18 @@ public class MovieDaoMockJPATest {
         entityManager.flush();
     }
     
-    @Test
-    public void test_findByTitle() {        
-        // when
-        List<MovieModel> found = movieDao.findByTitle("Movie Title 1");
-        
-        MovieModel result = null;
-        if(found.size() > 0) {
-        	result = found.get(0);
-        }
-
-        // then
-        assertThat(result.getTitle())
-          .isEqualTo("Movie Title 1");
-    }
+//    @Test
+//    public void test_findByTitle() {        
+//        // when
+//        List<MovieModel> found = movieDao.findByTitle("Movie Title 1");
+//        
+//        MovieModel result = null;
+//        if(found.size() > 0) {
+//        	result = found.get(0);
+//        }
+//
+//        // then
+//        assertThat(result.getTitle())
+//          .isEqualTo("Movie Title 1");
+//    }
 }

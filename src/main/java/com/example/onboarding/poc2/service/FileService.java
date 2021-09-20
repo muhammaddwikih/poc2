@@ -1,13 +1,11 @@
 package com.example.onboarding.poc2.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.onboarding.poc2.model.MovieModel;
 
 public interface FileService {
 
